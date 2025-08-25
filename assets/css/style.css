@@ -1,0 +1,401 @@
+/* Estilos personalizados para el sistema de taxis */
+
+:root {
+    --primary-color: #f39c12;
+    --primary-dark: #e67e22;
+    --secondary-color: #34495e;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --warning-color: #f1c40f;
+    --info-color: #3498db;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --taxi-yellow: #f39c12;
+    --taxi-black: #2c3e50;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal con márgenes */
+.main-container {
+    margin: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        margin: 0 40px;
+    }
+}
+
+/* Navbar personalizado */
+.navbar {
+    background: linear-gradient(135deg, var(--taxi-yellow), var(--primary-dark)) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: var(--dark-color) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--dark-color) !important;
+    font-weight: 500;
+    margin: 0 5px;
+    padding: 8px 15px !important;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(44, 62, 80, 0.1);
+    color: var(--dark-color) !important;
+}
+
+.navbar-nav .dropdown-menu {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.navbar-toggler {
+    border: none;
+    color: var(--dark-color);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* Cards personalizados */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 25px;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--taxi-yellow), var(--primary-dark));
+    color: var(--dark-color);
+    border-radius: 15px 15px 0 0 !important;
+    font-weight: 600;
+    padding: 20px;
+    border-bottom: none;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Botones personalizados */
+.btn {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--taxi-yellow), var(--primary-dark));
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color), #229954);
+    color: white;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color), #c0392b);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color), #d4ac0d);
+    color: var(--dark-color);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, var(--info-color), #2980b9);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+    color: white;
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--taxi-yellow);
+    color: var(--taxi-yellow);
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: var(--taxi-yellow);
+    color: var(--dark-color);
+}
+
+/* Formularios */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+/* Tabla personalizada */
+.table {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, var(--taxi-yellow), var(--primary-dark));
+    color: var(--dark-color);
+    border: none;
+    font-weight: 600;
+    padding: 18px 15px;
+    font-size: 0.95rem;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease-in-out;
+    border: none;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(243, 156, 18, 0.05);
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+    border-bottom: none;
+}
+
+.table .btn-group .btn {
+    margin: 0 1px;
+    border-radius: 8px;
+}
+
+/* DataTables personalización */
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 8px !important;
+    margin: 0 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3) !important;
+    border: 1px solid var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Modal personalizado */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--taxi-yellow), var(--primary-dark));
+    color: var(--dark-color);
+    border-radius: 20px 20px 0 0;
+    padding: 25px;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-footer {
+    padding: 20px 25px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Alertas personalizadas */
+.alert {
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+}
+
+/* Badges personalizados */
+.badge {
+    border-radius: 20px;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+/* Login page */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+/* Dashboard stats cards */
+.stats-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    border-left: 5px solid var(--taxi-yellow);
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-card .icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.stats-card .icon.primary {
+    background: linear-gradient(135deg, var(--taxi-yellow), var(--primary-dark));
+}
+
+.stats-card .icon.success {
+    background: linear-gradient(135deg, var(--success-color), #229954);
+}
+
+.stats-card .icon.warning {
+    background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+}
+
+.stats-card .icon.info {
+    background: linear-gradient(135deg, var(--info-color), #2980b9);
+}
+
+.stats-card h3 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--dark-color);
+}
+
+.stats-card p {
+    color: #7f8c8d;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 15px;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+/* Utilities */
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+}
+
+.shadow-custom {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.border-radius-custom {
+    border-radius: 15px;
+}
