@@ -1,6 +1,6 @@
 <?php
 	
-	$mysqli = new mysqli("localhost", "taxi", "password", "taxis");
+	$mysqli = new mysqli("localhost", "softepuc_gestiondoc", "L4i4*9YkEV+L", "softepuc_gestiondoc");
 	
 	// Configurar charset UTF-8 mejorado
 	if (!$mysqli->connect_error) {
