@@ -23,6 +23,26 @@ $stats['asociados_mes'] = $result->fetch_assoc()['total'];
 $result = $mysqli->query("SELECT COUNT(*) as total FROM asociados_archivos");
 $stats['total_archivos'] = $result->fetch_assoc()['total'];
 
+// Estadísticas del parque automotor
+$result = $mysqli->query("SELECT COUNT(*) as total FROM parque_automotor WHERE estado = 'activo'");
+$stats['vehiculos_activos'] = $result->fetch_assoc()['total'];
+
+$result = $mysqli->query("SELECT COUNT(*) as total FROM parque_automotor");
+$stats['total_vehiculos'] = $result->fetch_assoc()['total'];
+
+$result = $mysqli->query("SELECT COUNT(*) as total FROM parque_automotor_archivos");
+$stats['total_archivos_vehiculos'] = $result->fetch_assoc()['total'];
+
+// Estadísticas de conductores
+$result = $mysqli->query("SELECT COUNT(*) as total FROM conductores WHERE estado = 'activo'");
+$stats['conductores_activos'] = $result->fetch_assoc()['total'];
+
+$result = $mysqli->query("SELECT COUNT(*) as total FROM conductores");
+$stats['total_conductores'] = $result->fetch_assoc()['total'];
+
+$result = $mysqli->query("SELECT COUNT(*) as total FROM conductores_archivos");
+$stats['total_archivos_conductores'] = $result->fetch_assoc()['total'];
+
 // Últimos asociados registrados
 $ultimos_asociados = $mysqli->query("
     SELECT id, cedula, nombres, apellidos, fecha_creacion, estado 
@@ -50,10 +70,20 @@ include 'includes/header.php';
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="stats-card">
                 <div class="icon success">
-                    <i class="fas fa-user-check"></i>
+                    <i class="fas fa-car"></i>
                 </div>
-                <h3><?php echo number_format($stats['total_asociados']); ?></h3>
-                <p>Total Asociados</p>
+                <h3><?php echo number_format($stats['vehiculos_activos']); ?></h3>
+                <p>Vehículos Activos</p>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card">
+                <div class="icon info">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3><?php echo number_format($stats['conductores_activos']); ?></h3>
+                <p>Conductores Activos</p>
             </div>
         </div>
         
@@ -69,11 +99,69 @@ include 'includes/header.php';
         
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="stats-card">
-                <div class="icon info">
+                <div class="icon danger">
                     <i class="fas fa-file-alt"></i>
                 </div>
-                <h3><?php echo number_format($stats['total_archivos']); ?></h3>
+                <h3><?php echo number_format($stats['total_archivos'] + $stats['total_archivos_vehiculos'] + $stats['total_archivos_conductores']); ?></h3>
                 <p>Archivos Subidos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas adicionales -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="fas fa-user-check me-2"></i><?php echo number_format($stats['total_asociados']); ?>
+                    </h5>
+                    <p class="card-text">Total Asociados</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-success">
+                        <i class="fas fa-car-side me-2"></i><?php echo number_format($stats['total_vehiculos']); ?>
+                    </h5>
+                    <p class="card-text">Total Vehículos</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">
+                        <i class="fas fa-users-cog me-2"></i><?php echo number_format($stats['total_conductores']); ?>
+                    </h5>
+                    <p class="card-text">Total Conductores</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-info">
+                        <i class="fas fa-file-upload me-2"></i><?php echo number_format($stats['total_archivos']); ?>
+                    </h5>
+                    <p class="card-text">Archivos Asociados</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-secondary">
+                        <i class="fas fa-folder me-2"></i><?php echo number_format($stats['total_archivos_vehiculos']); ?>
+                    </h5>
+                    <p class="card-text">Archivos Vehículos</p>
+                </div>
             </div>
         </div>
     </div>
@@ -90,7 +178,7 @@ include 'includes/header.php';
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <a href="#" onclick="openCreateModal()" class="btn btn-primary btn-lg w-100">
+                            <a href="modules/asociados/create.php" class="btn btn-primary btn-lg w-100">
                                 <i class="fas fa-user-plus me-2"></i>
                                 <div>
                                     <strong>Nuevo Asociado</strong>
@@ -99,11 +187,47 @@ include 'includes/header.php';
                             </a>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <a href="modules/asociados/index.php" class="btn btn-success btn-lg w-100">
+                            <a href="modules/parque_automotor/create.php" class="btn btn-success btn-lg w-100">
+                                <i class="fas fa-car-side me-2"></i>
+                                <div>
+                                    <strong>Nuevo Vehículo</strong>
+                                    <br><small>Registrar un nuevo vehículo</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="modules/asociados/index.php" class="btn btn-info btn-lg w-100">
                                 <i class="fas fa-list me-2"></i>
                                 <div>
                                     <strong>Ver Asociados</strong>
                                     <br><small>Listar todos los asociados</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="modules/parque_automotor/index.php" class="btn btn-warning btn-lg w-100">
+                                <i class="fas fa-car me-2"></i>
+                                <div>
+                                    <strong>Ver Vehículos</strong>
+                                    <br><small>Listar parque automotor</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="modules/conductores/index.php" class="btn btn-info btn-lg w-100">
+                                <i class="fas fa-users-cog me-2"></i>
+                                <div>
+                                    <strong>Ver Conductores</strong>
+                                    <br><small>Listar conductores</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="modules/conductores/create.php" class="btn btn-success btn-lg w-100">
+                                <i class="fas fa-user-plus me-2"></i>
+                                <div>
+                                    <strong>Nuevo Conductor</strong>
+                                    <br><small>Registrar conductor</small>
                                 </div>
                             </a>
                         </div>

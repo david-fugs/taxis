@@ -49,6 +49,32 @@
                             </a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-car me-1"></i>Parque Automotor
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/parque_automotor/index.php">
+                                <i class="fas fa-list me-1"></i>Listar Vehículos
+                            </a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/parque_automotor/create.php">
+                                <i class="fas fa-plus me-1"></i>Nuevo Vehículo
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-users-cog me-1"></i>Conductores
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/conductores/index.php">
+                                <i class="fas fa-list me-1"></i>Listar Conductores
+                            </a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/conductores/create.php">
+                                <i class="fas fa-plus me-1"></i>Nuevo Conductor
+                            </a></li>
+                        </ul>
+                    </li>
                     <?php if (isAdmin()): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
