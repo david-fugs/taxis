@@ -195,7 +195,7 @@ include '../../includes/header.php';
                             </thead>
                             <tbody>
                                 <?php while ($vehiculo = $vehiculos->fetch_assoc()): ?>
-                                <tr>
+                                <tr id="vehiculo-<?php echo $vehiculo['id']; ?>">
                                     <td><strong><?php echo htmlspecialchars($vehiculo['placa']); ?></strong></td>
                                     <td>
                                         <?php echo htmlspecialchars($vehiculo['marca']); ?><br>
@@ -296,6 +296,23 @@ include '../../includes/header.php';
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                             <?php endif; ?>
+
+                                            <!-- Botón para alternar estado -->
+                                            <?php if (isAdmin()): ?>
+                                            <?php if ($vehiculo['estado'] === 'activo'): ?>
+                                                <button type="button" class="btn btn-outline-secondary" 
+                                                        onclick="toggleEstado(<?php echo $vehiculo['id']; ?>, 'inactivo')" 
+                                                        title="Poner inactivo">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-outline-success" 
+                                                        onclick="toggleEstado(<?php echo $vehiculo['id']; ?>, 'activo')" 
+                                                        title="Activar">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            <?php endif; ?>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -354,6 +371,95 @@ $(document).ready(function() {
         ]
     });
 });
+
+// Función para alternar estado vía AJAX
+function toggleEstado(id, nuevoEstado) {
+    const proceed = () => {
+        fetch('toggle_estado.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: new URLSearchParams({ id: id, estado: nuevoEstado })
+        }).then(r => r.json()).then(resp => {
+            if (resp.success) {
+                // Actualizar badge de estado en la fila
+                const row = document.getElementById('vehiculo-' + id);
+                if (row) {
+                    const badge = row.querySelector('td:nth-child(8) span.badge');
+                    if (badge) {
+                        const clases = {
+                            'activo': 'bg-success',
+                            'inactivo': 'bg-secondary',
+                            'mantenimiento': 'bg-warning',
+                            'vendido': 'bg-danger'
+                        };
+                        badge.className = 'badge ' + (clases[resp.estado] || 'bg-secondary');
+                        badge.textContent = resp.estado.charAt(0).toUpperCase() + resp.estado.slice(1);
+                    }
+
+                    const btnGroup = row.querySelector('.btn-group');
+                    if (btnGroup) {
+                        const toggleBtn = btnGroup.querySelector('button[title="Poner inactivo"], button[title="Activar"]');
+                        if (toggleBtn) {
+                            const newBtn = document.createElement('button');
+                            if (resp.estado === 'activo') {
+                                newBtn.className = 'btn btn-outline-secondary';
+                                newBtn.title = 'Poner inactivo';
+                                newBtn.innerHTML = '<i class="fas fa-ban"></i>';
+                                newBtn.setAttribute('onclick', 'toggleEstado(' + id + ', "inactivo")');
+                            } else {
+                                newBtn.className = 'btn btn-outline-success';
+                                newBtn.title = 'Activar';
+                                newBtn.innerHTML = '<i class="fas fa-check"></i>';
+                                newBtn.setAttribute('onclick', 'toggleEstado(' + id + ', "activo")');
+                            }
+                            toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
+                        }
+                    }
+                }
+
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Estado actualizado',
+                        text: 'El vehículo ahora está ' + resp.estado,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            } else {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({ icon: 'error', title: 'Error', text: resp.message || 'Error al actualizar estado' });
+                } else {
+                    alert(resp.message || 'Error al actualizar estado');
+                }
+            }
+        }).catch(err => {
+            console.error(err);
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({ icon: 'error', title: 'Error de red', text: 'No se pudo conectar al servidor' });
+            } else {
+                alert('Error de red al intentar cambiar estado');
+            }
+        });
+    };
+
+    if (typeof Swal !== 'undefined') {
+        Swal.fire({
+            title: 'Confirmar cambio de estado',
+            text: nuevoEstado === 'inactivo' ? 'El vehículo quedará inactivo.' : 'El vehículo quedará activo.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cambiar',
+            cancelButtonText: 'Cancelar'
+        }).then(result => {
+            if (result.isConfirmed) proceed();
+        });
+    } else {
+        if (confirm('¿Desea cambiar el estado del vehículo?')) proceed();
+    }
+}
 </script>
 
 <?php include '../../includes/footer.php'; ?>

@@ -75,6 +75,15 @@
                             </a></li>
                         </ul>
                     </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="sellarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sellar
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="sellarDropdown">
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/sellar/create.php">Crear</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/sellar/index.php">Listado</a></li>
+                            </ul>
+                        </li>
                     <?php if (isAdmin()): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

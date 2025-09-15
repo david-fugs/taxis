@@ -567,6 +567,7 @@ include '../../includes/header.php';
                                             <label class="form-label">Tipo</label>
                                             <select class="form-select" name="tipos_archivo[]">
                                                 <option value="cedula">Cédula</option>
+                                                <option value="foto_conductor">Foto del Conductor</option>
                                                 <option value="licencia">Licencia de Conducir</option>
                                                 <option value="seguro_social">Seguro Social</option>
                                                 <option value="foto">Fotografía</option>
