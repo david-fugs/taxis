@@ -8,8 +8,10 @@ while($row = $query->fetch_assoc()) {
 }
 
 echo "<h3>Sample Conductor Files:</h3>";
-$query = $mysqli->query("SELECT c.nombre_completo, ca.nombre_archivo, ca.tipo_archivo FROM conductores_archivos ca JOIN conductores c ON ca.conductor_id = c.id WHERE ca.tipo_archivo = 'Foto de Conductor' LIMIT 5");
+$query = $mysqli->query("SELECT c.id as conductor_id, c.nombre_completo, ca.nombre_archivo, ca.tipo_archivo FROM conductores_archivos ca JOIN conductores c ON ca.conductor_id = c.id WHERE ca.tipo_archivo IN ('Foto de Conductor','Foto del Conductor') LIMIT 10");
 while($row = $query->fetch_assoc()) {
-    echo "<p><strong>" . htmlspecialchars($row['nombre_completo']) . "</strong>: " . htmlspecialchars($row['nombre_archivo']) . " (" . htmlspecialchars($row['tipo_archivo']) . ")</p>";
+    $id = (int)$row['conductor_id'];
+    $link = 'modules/tarjetas_control/generate.php?conductor_id=' . $id;
+    echo "<p><strong>" . htmlspecialchars($row['nombre_completo']) . "</strong>: " . htmlspecialchars($row['nombre_archivo']) . " (" . htmlspecialchars($row['tipo_archivo']) . ") " . " - <a href='" . htmlspecialchars($link) . "' target='_blank'>Ver tarjeta</a></p>";
 }
 ?>

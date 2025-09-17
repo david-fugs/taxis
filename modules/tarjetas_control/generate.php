@@ -111,14 +111,28 @@ $page_title = 'Tarjeta de Control - ' . $conductor['nombre_completo'];
             margin: 0;
         }
         
-        .conductor-photo {
+        .photo-frame {
             width: 15mm;
             height: 18mm;
             border: 1px solid #000;
             float: left;
             margin-right: 3mm;
             margin-bottom: 2mm;
-            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #f6f6f6;
+        }
+
+        .photo-frame img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
         }
         
         .conductor-info {
@@ -166,6 +180,13 @@ $page_title = 'Tarjeta de Control - ' . $conductor['nombre_completo'];
             border-top: 1px solid #ccc;
             padding-top: 1mm;
         }
+
+        /* Print-specific adjustments for images */
+        @media print {
+            .photo-frame { border: 1px solid #000; }
+            .photo-frame img { print-color-adjust: exact; -webkit-print-color-adjust: exact; object-fit: contain; }
+            .tarjeta-control { page-break-inside: avoid; }
+        }
     </style>
 </head>
 <body>
@@ -196,10 +217,12 @@ $page_title = 'Tarjeta de Control - ' . $conductor['nombre_completo'];
     
     <div class="conductor-section">
         <?php if ($conductor['foto_conductor']): ?>
-            <img src="<?php echo BASE_URL; ?>uploads/documentos/<?php echo htmlspecialchars($conductor['foto_conductor']); ?>" 
-                 alt="Foto del Conductor" class="conductor-photo">
+            <div class="photo-frame">
+                <img src="<?php echo BASE_URL; ?>uploads/documentos/<?php echo htmlspecialchars($conductor['foto_conductor']); ?>" 
+                     alt="Foto del Conductor">
+            </div>
         <?php else: ?>
-            <div class="conductor-photo d-flex align-items-center justify-content-center bg-light">
+            <div class="photo-frame d-flex align-items-center justify-content-center bg-light">
                 <i class="fas fa-user"></i>
             </div>
         <?php endif; ?>
@@ -286,6 +309,14 @@ $page_title = 'Tarjeta de Control - ' . $conductor['nombre_completo'];
                         </div>
                         <div class="col-md-6">
                             <p><strong>Dirección:</strong> <?php echo htmlspecialchars($conductor['direccion'] ?? 'N/A'); ?></p>
+                            <?php if ($conductor['foto_conductor']): ?>
+                                <p><strong>Foto (vista previa):</strong></p>
+                                <a href="<?php echo BASE_URL . 'uploads/documentos/' . htmlspecialchars($conductor['foto_conductor']); ?>" target="_blank" class="d-inline-block mb-2">
+                                    <div class="photo-frame" style="width:60px; height:80px; border:1px solid #ccc;">
+                                        <img src="<?php echo BASE_URL . 'uploads/documentos/' . htmlspecialchars($conductor['foto_conductor']); ?>" alt="Preview">
+                                    </div>
+                                </a>
+                            <?php endif; ?>
                             <p><strong>Licencia Vence:</strong> 
                                 <span class="badge <?php echo $licencia_vigente ? 'bg-success' : 'bg-danger'; ?>">
                                     <?php echo $conductor['licencia_vence'] ? date('d/m/Y', strtotime($conductor['licencia_vence'])) : 'N/A'; ?>
