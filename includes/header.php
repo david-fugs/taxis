@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">                       
     <title><?php echo isset($page_title) ? $page_title . ' - ' . APP_NAME : APP_NAME; ?></title>
     
     <!-- Bootstrap CSS -->
@@ -75,13 +74,28 @@
                             </a></li>
                         </ul>
                     </li>
+                       
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="sellarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Sellar
+                                <i class="fas fa-stamp me-1"></i>Sellar
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="sellarDropdown">
-                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/sellar/create.php">Crear</a></li>
-                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/sellar/index.php">Listado</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/sellar/create.php">
+                                    <i class="fas fa-plus me-1"></i>Crear
+                                </a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/sellar/index.php">
+                                    <i class="fas fa-list me-1"></i>Listado
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="tarjetasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-id-card me-1"></i>Tarjetas de Control
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="tarjetasDropdown">
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>modules/tarjetas_control/index.php">
+                                    <i class="fas fa-print me-1"></i>Generar Tarjeta
+                                </a></li>
                             </ul>
                         </li>
                     <?php if (isAdmin()): ?>

@@ -594,6 +594,7 @@ include '../../includes/header.php';
                                                             'licencia' => 'Licencia',
                                                             'seguro_social' => 'Seguro Social',
                                                             'foto' => 'Fotografía',
+                                                            'Foto de Conductor' => 'Foto de Conductor',
                                                             'certificados' => 'Certificados',
                                                             'general' => 'General'
                                                         ];
@@ -636,7 +637,7 @@ include '../../includes/header.php';
                                                 <option value="cedula">Cédula</option>
                                                 <option value="licencia">Licencia de Conducir</option>
                                                 <option value="seguro_social">Seguro Social</option>
-                                                <option value="foto">Fotografía</option>
+                                                <option value="Foto de Conductor">Foto de Conductor</option>
                                                 <option value="certificados">Certificados</option>
                                                 <option value="general">General</option>
                                             </select>

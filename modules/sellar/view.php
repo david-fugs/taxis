@@ -13,7 +13,7 @@ if (!$id || !is_numeric($id)) {
 $query = "
     SELECT 
         s.*,
-        v.placa, v.marca, v.modelo, v.empresa, v.color, v.año, v.niv,
+        v.placa, v.marca, v.modelo, v.empresa,
         c.nombre_completo as conductor_nombre, c.cedula as conductor_cedula, 
         c.telefono as conductor_telefono, c.email as conductor_email,
         u.username as usuario_nombre,

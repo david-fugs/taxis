@@ -570,7 +570,7 @@ include '../../includes/header.php';
                                                 <option value="foto_conductor">Foto del Conductor</option>
                                                 <option value="licencia">Licencia de Conducir</option>
                                                 <option value="seguro_social">Seguro Social</option>
-                                                <option value="foto">Fotografía</option>
+                                                <option value="Foto de Conductor">Foto de Conductor</option>
                                                 <option value="certificados">Certificados</option>
                                                 <option value="general">General</option>
                                             </select>
